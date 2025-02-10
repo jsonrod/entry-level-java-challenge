@@ -55,6 +55,7 @@ public class EmployeeController {
      * @return Newly created Employee
      */
     @PostMapping
+    // Changed the type "Object" (what was originally provided in the code) to my implementation of the Employee interface for the service layer to handle.
     public Employee createEmployee(@RequestBody EmployeeClass requestBody) {
         return service.createEmployee(requestBody);
     }

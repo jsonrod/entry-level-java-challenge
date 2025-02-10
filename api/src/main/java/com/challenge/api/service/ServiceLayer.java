@@ -17,8 +17,6 @@ public class ServiceLayer {
     // Employees database instantiation
     public ServiceLayer() {
         employees = new ArrayList<>();
-        Employee newEmployee = new EmployeeClass(UUID.randomUUID(), "Jason", "Rodriguez", "Jason Rodriguez", 80000, 26, "Software Engineer", "jsonrod@outlook.com", null, null);
-        employees.add(newEmployee);
     }
 
     public List<Employee> getAllEmployees() {
@@ -55,8 +53,9 @@ public class ServiceLayer {
         // If no UUID value was specified, randomly generate it; otherwise, set the new UUID value to the received one.
         UUID newUuid = (retrievedUuid == null) ? UUID.randomUUID() : retrievedUuid;
         
+        // Create the new employee from the JSON request body
         Employee newEmployee = new EmployeeClass(newUuid,
-                                                requestBody.getFirstName(), 
+                                                requestBody.getFirstName(),
                                                 requestBody.getLastName(),
                                                 requestBody.getFullName(),
                                                 requestBody.getSalary(),
