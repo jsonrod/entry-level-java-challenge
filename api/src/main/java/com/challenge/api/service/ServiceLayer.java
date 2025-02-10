@@ -5,7 +5,6 @@ import com.challenge.api.model.EmployeeClass;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.HttpStatus;
 import java.util.*;
 
@@ -18,6 +17,8 @@ public class ServiceLayer {
     // Employees database instantiation
     public ServiceLayer() {
         employees = new ArrayList<>();
+        Employee newEmployee = new EmployeeClass(UUID.randomUUID(), "Jason", "Rodriguez", "Jason Rodriguez", 80000, 26, "Software Engineer", "jsonrod@outlook.com", null, null);
+        employees.add(newEmployee);
     }
 
     public List<Employee> getAllEmployees() {
@@ -46,27 +47,27 @@ public class ServiceLayer {
         return employee;
     }
 
-    public Employee createEmployee(@RequestBody Employee requestBody) {
+    public Employee createEmployee(EmployeeClass requestBody) {
 
         // Get the UUID value specified in the POST request
         UUID retrievedUuid = requestBody.getUuid();
+        
         // If no UUID value was specified, randomly generate it; otherwise, set the new UUID value to the received one.
         UUID newUuid = (retrievedUuid == null) ? UUID.randomUUID() : retrievedUuid;
-    
-        // Create a new employee instance with the self-defined constructor using parameters (alternatively could've used each method)
+        
         Employee newEmployee = new EmployeeClass(newUuid,
-                                                 requestBody.getFirstName(),
-                                                 requestBody.getLastName(),
-                                                 requestBody.getFullName(),
-                                                 requestBody.getSalary(),
-                                                 requestBody.getAge(),
-                                                 requestBody.getJobTitle(),
-                                                 requestBody.getEmail(),
-                                                 requestBody.getContractHireDate(),
-                                                 requestBody.getContractTerminationDate());
+                                                requestBody.getFirstName(), 
+                                                requestBody.getLastName(),
+                                                requestBody.getFullName(),
+                                                requestBody.getSalary(),
+                                                requestBody.getAge(),
+                                                requestBody.getJobTitle(),
+                                                requestBody.getEmail(),
+                                                requestBody.getContractHireDate(),
+                                                requestBody.getContractTerminationDate());
 
         // Add the new employee into the database
-        // Mimicking the following SQL command: INSERT INTO Employees (uuid, firstname, lastname, ...) VALUES (requestBody.getFirstName(), ....);
+        // Mimicking the following SQL command: INSERT INTO Employees (uuid, firstname, lastname, ...) VALUES (newUuid, requestBody.getFirstName(), ....);
         employees.add(newEmployee);
 
         // Retrieve the newly created employee from POST

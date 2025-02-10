@@ -19,10 +19,6 @@ public class EmployeeClass implements Employee {
 
     // Constructor with parameters
     public EmployeeClass(UUID uuid, String firstName, String lastName, String fullName, Integer salary, Integer age, String jobTitle, String email, Instant contractHireDate, Instant contractTerminationDate) {
-        // If a UUID was not detected from the JSON object, throw an exception.
-        if (uuid == null) {
-            throw new NullPointerException("The UUID cannot be null.\n");
-        }
         // Set all member variable values
         this.uuid = uuid;
         this.firstName = firstName;
@@ -133,7 +129,7 @@ public class EmployeeClass implements Employee {
     @Override
     public void setEmail(String email) {
         // Check to ensure the email is a proper string containing @ and . to indicate a proper domain follows the email username
-        if (!email.contains("@") && !email.contains(".")) {
+        if (!(email.contains("@") && email.contains("."))) {
             throw new IllegalArgumentException("Email field does not contain proper formatting. Check for '@' and '.' symbols.");
         }
         this.email = email;
